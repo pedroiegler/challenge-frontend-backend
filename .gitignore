@@ -1,0 +1,10 @@
+# .gitignore
+
+# Arquivos de configuração locais
+backend/.env
+
+# Ambiente virtual
+backend/venv/
+
+# Arquivos de banco de dados
+backend/db.sqlite3
