@@ -30,3 +30,15 @@ class UserSerializer(serializers.ModelSerializer):
 
 class DepositSerializer(serializers.Serializer):
     balance = serializers.DecimalField(max_digits=10, decimal_places=2, min_value=Decimal('0.01'))
+
+class TransferSerializer(serializers.Serializer):
+    receiver_id = serializers.IntegerField()
+    amount = serializers.DecimalField(max_digits=10, decimal_places=2, min_value=Decimal('0.01'))
+
+class TransactionSerializer(serializers.ModelSerializer):
+    sender_name = serializers.CharField(source='sender.user.username', read_only=True)
+    receiver_name = serializers.CharField(source='receiver.user.username', read_only=True)
+
+    class Meta:
+        model = Transaction
+        fields = ['id', 'amount', 'created_at', 'sender', 'receiver', 'sender_name', 'receiver_name']

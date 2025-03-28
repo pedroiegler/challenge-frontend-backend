@@ -1,11 +1,13 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
 from wallet.serializers import CustomTokenObtainPairSerializer
 from django.contrib.auth.models import User
+from django.db import transaction
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .serializers import UserSerializer, DepositSerializer
+from rest_framework.views import APIView
+from .serializers import UserSerializer, DepositSerializer, TransferSerializer, TransactionSerializer
 from .models import Wallet, Transaction
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -70,3 +72,54 @@ class WalletViewSet(viewsets.ViewSet):
                 return Response({'detail': 'Wallet not found'}, status=status.HTTP_404_NOT_FOUND)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, url_path=r'transfer/(?P<id_user_sender>\d+)', methods=['POST'])
+    def transfer(self, request, id_user_sender):
+        serializer = TransferSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                user = User.objects.get(id=id_user_sender)
+                sender_wallet = Wallet.objects.get(user=user)
+                receiver_wallet = Wallet.objects.get(user_id=serializer.validated_data['receiver_id'])
+                amount = serializer.validated_data['amount']
+
+                if sender_wallet.balance < amount:
+                    return Response({'error': 'Insufficient balance!'}, status=status.HTTP_400_BAD_REQUEST)
+
+                with transaction.atomic():
+                    sender_wallet.balance -= amount
+                    receiver_wallet.balance += amount
+                    sender_wallet.save()
+                    receiver_wallet.save()
+                    Transaction.objects.create(sender=sender_wallet, receiver=receiver_wallet, amount=amount)
+
+                return Response({'message': 'Transfer completed successfully!', 'sender_balance': sender_wallet.balance}, status=status.HTTP_200_OK)
+             
+            except User.DoesNotExist:
+                return Response({'detail': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+            except Wallet.DoesNotExist:
+                return Response({'detail': 'Wallet not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TransactionAPIView(APIView):
+    def get(self, request):
+        transactions = Transaction.objects.all()
+
+        sender_name = request.query_params.get('sender_name', None)
+        created_at_after = request.query_params.get('created_at_after', None)
+        created_at_before = request.query_params.get('created_at_before', None)
+
+        if sender_name:
+            transactions = transactions.filter(sender__user__username__icontains=sender_name)
+
+        if created_at_after:
+            transactions = transactions.filter(created_at__gte=created_at_after)
+
+        if created_at_before:
+            transactions = transactions.filter(created_at__lte=created_at_before)
+
+        serializer = TransactionSerializer(transactions, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
