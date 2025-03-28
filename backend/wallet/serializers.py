@@ -2,6 +2,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.models import User
 from .models import Transaction
 from rest_framework import serializers
+from decimal import Decimal
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
@@ -26,3 +27,6 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         return user
+
+class DepositSerializer(serializers.Serializer):
+    balance = serializers.DecimalField(max_digits=10, decimal_places=2, min_value=Decimal('0.01'))
