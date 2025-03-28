@@ -1,5 +1,3 @@
-#python manage.py shell < populate_db.py
-
 import django
 import os
 from decimal import Decimal
