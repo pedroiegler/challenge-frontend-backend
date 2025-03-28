@@ -10,6 +10,10 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = []
 
+TIME_ZONE = 'America/Sao_Paulo'
+
+USE_TZ = True
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -105,4 +109,16 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=30),
     'ALGORITHM': 'HS256',
     'AUTH_HEADER_TYPES': ('Bearer',),  
+}
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'Digite "Bearer <seu_token>" para autenticação.'
+        }
+    },
+    'USE_SESSION_AUTH': False,
 }
