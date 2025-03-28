@@ -9,6 +9,8 @@ backend/venv/
 # Arquivos de banco de dados
 backend/db.sqlite3
 
-# Arquivos de build
-backend/financial_project/__pycache__
-backend/wallet/__pycache__
+# Ignorar arquivos compilados do Python
+*.pyc
+*.pyo
+__pycache__/
+**/__pycache__/
