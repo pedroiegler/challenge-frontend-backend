@@ -1,9 +1,11 @@
-import django
 import os
 from decimal import Decimal
-from django.contrib.auth.models import User, Group
-from wallet.models import Wallet, Transaction
+
+import django
+from django.contrib.auth.models import Group, User
 from django.utils.timezone import now
+
+from wallet.models import Transaction, Wallet
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'financial_project.settings')
 django.setup()

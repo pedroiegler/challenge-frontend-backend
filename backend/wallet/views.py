@@ -1,14 +1,18 @@
-from rest_framework_simplejwt.views import TokenObtainPairView
-from wallet.serializers import CustomTokenObtainPairSerializer
 from django.contrib.auth.models import User
 from django.db import transaction
-from rest_framework import viewsets, status
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework import status, viewsets
 from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import UserSerializer, DepositSerializer, TransferSerializer, TransactionSerializer
-from .models import Wallet, Transaction
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+from wallet.serializers import CustomTokenObtainPairSerializer
+
+from .models import Transaction, Wallet
+from .serializers import (DepositSerializer, TransactionSerializer,
+                          TransferSerializer, UserSerializer)
+
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer

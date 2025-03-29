@@ -1,9 +1,12 @@
+from decimal import Decimal
+
 import pytest
 from django.contrib.auth.models import User
-from wallet.models import Wallet, Transaction
-from decimal import Decimal
 from django.db.models.signals import post_save
+
+from wallet.models import Transaction, Wallet
 from wallet.signals import create_wallet_for_new_user
+
 
 @pytest.mark.django_db
 def test_wallet_creation():

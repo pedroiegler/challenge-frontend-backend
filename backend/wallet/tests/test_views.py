@@ -1,14 +1,17 @@
+from datetime import timedelta
+from decimal import Decimal
+
 import pytest
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.utils import timezone
-from datetime import timedelta
-from wallet.models import Wallet, Transaction
-from wallet.signals import create_wallet_for_new_user
-from decimal import Decimal
 from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import RefreshToken
+
+from wallet.models import Transaction, Wallet
+from wallet.signals import create_wallet_for_new_user
+
 
 @pytest.mark.django_db
 def test_balance_view():

@@ -1,8 +1,11 @@
-from django.urls import path, include
-from wallet.views import CustomTokenObtainPairView
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from .views import UserViewSet, WalletViewSet, TransactionAPIView
+from rest_framework_simplejwt.views import (TokenObtainPairView,
+                                            TokenRefreshView)
+
+from wallet.views import CustomTokenObtainPairView
+
+from .views import TransactionAPIView, UserViewSet, WalletViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
