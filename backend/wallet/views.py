@@ -52,12 +52,14 @@ class WalletViewSet(viewsets.ViewSet):
 
         except User.DoesNotExist:
             return Response(
-                {"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND
+                {"detail": "User not found"},
+                status=status.HTTP_404_NOT_FOUND,
             )
 
         except Wallet.DoesNotExist:
             return Response(
-                {"detail": "Wallet not found"}, status=status.HTTP_404_NOT_FOUND
+                {"detail": "Wallet not found"},
+                status=status.HTTP_404_NOT_FOUND,
             )
 
     @action(detail=False, url_path=r"deposit/(?P<id_user>\d+)", methods=["PATCH"])
@@ -68,7 +70,6 @@ class WalletViewSet(viewsets.ViewSet):
             try:
                 user = User.objects.get(id=id_user)
                 wallet = Wallet.objects.get(user=user)
-
                 balance = serializer.validated_data["balance"]
 
                 wallet.balance += balance
@@ -84,18 +85,22 @@ class WalletViewSet(viewsets.ViewSet):
 
             except User.DoesNotExist:
                 return Response(
-                    {"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND
+                    {"detail": "User not found"},
+                    status=status.HTTP_404_NOT_FOUND,
                 )
 
             except Wallet.DoesNotExist:
                 return Response(
-                    {"detail": "Wallet not found"}, status=status.HTTP_404_NOT_FOUND
+                    {"detail": "Wallet not found"},
+                    status=status.HTTP_404_NOT_FOUND,
                 )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(
-        detail=False, url_path=r"transfer/(?P<id_user_sender>\d+)", methods=["POST"]
+        detail=False,
+        url_path=r"transfer/(?P<id_user_sender>\d+)",
+        methods=["POST"],
     )
     def transfer(self, request, id_user_sender):
         serializer = TransferSerializer(data=request.data)
@@ -115,27 +120,31 @@ class WalletViewSet(viewsets.ViewSet):
                     )
 
                 with transaction.atomic():
-                    transaction = Transaction.objects.create(
-                        sender=sender_wallet, receiver=receiver_wallet, amount=amount
+                    Transaction.objects.create(
+                        sender=sender_wallet,
+                        receiver=receiver_wallet,
+                        amount=amount,
                     )
 
                 return Response(
                     {
                         "message": "Transfer completed successfully!",
-                        "sender_balance": sender_wallet.balance - amount,
-                        "receiver_balance": receiver_wallet.balance + amount,
+                        "sender_balance": sender_wallet.balance,
+                        "receiver_balance": receiver_wallet.balance,
                     },
                     status=status.HTTP_200_OK,
                 )
 
             except User.DoesNotExist:
                 return Response(
-                    {"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND
+                    {"detail": "User not found"},
+                    status=status.HTTP_404_NOT_FOUND,
                 )
 
             except Wallet.DoesNotExist:
                 return Response(
-                    {"detail": "Wallet not found"}, status=status.HTTP_404_NOT_FOUND
+                    {"detail": "Wallet not found"},
+                    status=status.HTTP_404_NOT_FOUND,
                 )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

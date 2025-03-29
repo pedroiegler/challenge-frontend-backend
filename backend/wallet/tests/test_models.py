@@ -13,7 +13,6 @@ def test_wallet_creation():
     post_save.disconnect(create_wallet_for_new_user, sender=User)
 
     user = User.objects.create_user(username="testuser", password="password123")
-
     wallet = Wallet.objects.create(user=user, balance=Decimal("100.00"))
 
     assert wallet.user.username == "testuser"
@@ -33,7 +32,9 @@ def test_wallet_transaction_creation():
     wallet2 = Wallet.objects.create(user=user2, balance=Decimal("50.00"))
 
     transaction = Transaction.objects.create(
-        sender=wallet1, receiver=wallet2, amount=Decimal("30.00")
+        sender=wallet1,
+        receiver=wallet2,
+        amount=Decimal("30.00"),
     )
 
     assert transaction.sender == wallet1

@@ -1,0 +1,10 @@
+[flake8]
+exclude =
+    .venv,
+    venv,
+    __pycache__,
+    .git,
+    node_modules,
+    lib/python3.10/site-packages/yaml/*
+ignore =
+    E501

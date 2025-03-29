@@ -27,11 +27,9 @@ def test_balance_view():
     client.credentials(HTTP_AUTHORIZATION="Bearer " + access_token)
 
     response = client.get(f"/api/v1/wallet/balance/{user.id}/")
-
     assert response.status_code == status.HTTP_200_OK
 
     response_data = response.json()
-
     assert response_data["user_id"] == user.id
     assert response_data["username"] == user.username
     assert response_data["wallet_id"] == wallet.id
@@ -53,9 +51,7 @@ def test_balance_user_not_found():
     client = APIClient()
     client.credentials(HTTP_AUTHORIZATION="Bearer " + access_token)
 
-    # Fazendo a requisição GET para o endpoint com um usuário inexistente
     response = client.get("/wallet/balance/999/")
-
     assert response.status_code == status.HTTP_404_NOT_FOUND
 
     post_save.connect(create_wallet_for_new_user, sender=User)
@@ -73,9 +69,7 @@ def test_balance_wallet_not_found():
     client = APIClient()
     client.credentials(HTTP_AUTHORIZATION="Bearer " + access_token)
 
-    # Fazendo a requisição GET para o endpoint para um usuário sem carteira
     response = client.get(f"/wallet/balance/{user.id}/")
-
     assert response.status_code == status.HTTP_404_NOT_FOUND
 
     post_save.connect(create_wallet_for_new_user, sender=User)
@@ -91,13 +85,13 @@ def test_transaction_view_no_filters():
     sender_wallet = Wallet.objects.create(user=user1, balance=Decimal("100.0"))
     receiver_wallet = Wallet.objects.create(user=user2, balance=Decimal("50.0"))
 
-    transaction_1 = Transaction.objects.create(
+    Transaction.objects.create(
         sender=sender_wallet,
         receiver=receiver_wallet,
         amount=20,
         created_at=timezone.now(),
     )
-    transaction_2 = Transaction.objects.create(
+    Transaction.objects.create(
         sender=sender_wallet,
         receiver=receiver_wallet,
         amount=40,
@@ -111,11 +105,9 @@ def test_transaction_view_no_filters():
     client.credentials(HTTP_AUTHORIZATION="Bearer " + access_token)
 
     response = client.get("/api/v1/transaction/")
-
     assert response.status_code == status.HTTP_200_OK
 
     response_data = response.json()
-
     assert len(response_data) == 2
     assert float(response_data[0]["amount"]) == 20.00
     assert float(response_data[1]["amount"]) == 40.00
