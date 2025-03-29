@@ -9,6 +9,7 @@ Este projeto é uma aplicação web construída com **Python e Django** no backe
 4. Todas as APIs seguem os padrões **RESTful**.  
 5. Inclui um script para **popular o banco de dados** com dados fictícios para demonstração.  
 6. Contém **testes automatizados**, garantindo a estabilidade e segurança do sistema.  
+7. Qualidade de código garantida através do uso de **Linters**, com **Flake8** para análise estática, **Black** para formatação automática e **Isort** para organização das importações, assegurando consistência e boas práticas no desenvolvimento.
 
 ---
 
@@ -94,6 +95,22 @@ python manage.py runserver
 ```bash
 pytest
 ```
+
+### 🛠 Executar testes automatizados  
+- **Flake8: Para verificar a conformidade do código com as regras de estilo e qualidade.**
+  ```bash
+  flake8 .
+  ```
+
+- **Black: Para formatação automática do código Python.**
+  ```bash
+  black .
+  ```
+
+- **Isort: Para organizar e classificar as importações de acordo com as convenções.**
+  ```bash
+  isort .
+  ```
 
 ### 📌 Gerar diagrama do banco de dados  
 
