@@ -96,7 +96,7 @@ python manage.py runserver
 pytest
 ```
 
-### 🛠 Executar testes automatizados  
+### 🛠 Ferramentas de Qualidade de Código (Linter) 
 - **Flake8: Para verificar a conformidade do código com as regras de estilo e qualidade.**
   ```bash
   flake8 .
