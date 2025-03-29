@@ -87,14 +87,16 @@ class WalletViewSet(viewsets.ViewSet):
                     return Response({'error': 'Insufficient balance!'}, status=status.HTTP_400_BAD_REQUEST)
 
                 with transaction.atomic():
-                    sender_wallet.balance -= amount
-                    receiver_wallet.balance += amount
-                    sender_wallet.save()
-                    receiver_wallet.save()
-                    Transaction.objects.create(sender=sender_wallet, receiver=receiver_wallet, amount=amount)
+                    transaction = Transaction.objects.create(
+                        sender=sender_wallet,
+                        receiver=receiver_wallet,
+                        amount=amount
+                    )
 
-                return Response({'message': 'Transfer completed successfully!', 'sender_balance': sender_wallet.balance}, status=status.HTTP_200_OK)
-             
+                return Response({'message': 'Transfer completed successfully!',
+                                'sender_balance': sender_wallet.balance - amount,
+                                'receiver_balance': receiver_wallet.balance + amount}, status=status.HTTP_200_OK)
+
             except User.DoesNotExist:
                 return Response({'detail': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
