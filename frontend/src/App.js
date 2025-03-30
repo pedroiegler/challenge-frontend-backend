@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Login from './pages/Login/Login';
 import Header from './components/Header/Header';
 import "./App.css";
@@ -6,12 +6,21 @@ import "./App.css";
 
 const App = () => {
   const [username, setUsername] = useState("");
+  const [idUser, setIdUser] = useState("");
   const [token, setToken] = useState(null);
 
-  const handleLogin = (token, username) => {
+  useEffect(() => {
+    const token = localStorage.getItem('auth-token');
+    if(token){
+      setToken(token);
+    }
+  })
+
+  const handleLogin = (id, username, token) => {
     setToken(token);
     localStorage.setItem('auth-token', token);
-    setUsername(username)
+    setUsername(username);
+    setIdUser(id)
   };
 
   const handleLogout = () => {
@@ -25,7 +34,7 @@ const App = () => {
         <Login onLogin={handleLogin} />
       ) : (
         <>
-          <Header username={username} onLogout={handleLogout} />
+          <Header id_user={idUser} username={username} onLogout={handleLogout} />
         </>
       )}
     </div>

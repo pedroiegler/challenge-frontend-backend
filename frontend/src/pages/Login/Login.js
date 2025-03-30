@@ -31,7 +31,7 @@ const Login = ({ onLogin }) => {
       localStorage.setItem('id-user', data.id);
       localStorage.setItem('username', data.username);
 
-      onLogin(data.access, data.username);
+      onLogin(data.id, data.username, data.access);
     } catch (error) {
       setErrorMessage(error.message || 'Erro na comunicação com a API');
     }
