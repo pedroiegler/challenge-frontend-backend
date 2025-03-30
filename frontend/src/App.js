@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Login from './pages/Login/Login';
 import Header from './components/Header/Header';
 import "./App.css";
-//import Transfers from './pages/Transfers';
+import Transfers from './pages/Transfers/Transfers';
 
 const App = () => {
   const [username, setUsername] = useState("");
@@ -25,7 +25,7 @@ const App = () => {
     if(name){
       setUsername(name);
     }
-    if(is_superuser){
+    if(is_superuser != null && is_superuser != undefined){
       setIsSuperUser(is_superuser);
     }
   }, [])
@@ -50,6 +50,7 @@ const App = () => {
       ) : (
         <>
           <Header id_user={idUser} username={username} is_superuser={isSuperUser} onLogout={handleLogout} />
+          <Transfers is_superuser={isSuperUser} id_user={idUser} />
         </>
       )}
     </div>

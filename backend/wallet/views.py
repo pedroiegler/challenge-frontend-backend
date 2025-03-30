@@ -154,9 +154,15 @@ class TransactionAPIView(APIView):
     def get(self, request):
         transactions = Transaction.objects.all()
 
+        sender_id = request.query_params.get("sender_id", None)
         sender_name = request.query_params.get("sender_name", None)
         created_at_after = request.query_params.get("created_at_after", None)
         created_at_before = request.query_params.get("created_at_before", None)
+
+        if sender_id:
+            transactions = transactions.filter(
+                sender__user__id__iexact=sender_id
+            )
 
         if sender_name:
             transactions = transactions.filter(

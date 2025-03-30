@@ -106,124 +106,126 @@ const Header = ({ id_user, username, is_superuser, onLogout }) => {
 
   return (
     <header className="header">
-      <div className="header-left">
-        <button onClick={onLogout} className="logout-btn">
-          <FaSignOutAlt />
-        </button>
-      </div>
-      <div className="header-center">
-        {walletBalance !== null && (
-          <span className="wallet-balance">Saldo da Carteira: R${parseFloat(walletBalance).toFixed(2)}</span>
-        )}
-        <button
-          className="deposit-btn"
-          onClick={() => setShowDepositModal(true)}
-        >
-          Depositar
-        </button>
-      </div>
-      <div className="header-right">
-        <span>Usuário: {username}</span>
-        {is_superuser ? 
-          (
-            <button className="create-user-btn" onClick={() => setShowCreateUserModal(true)}>
-              Criar Usuário
-            </button>
-          ) : <></>
-        }
-      </div>
-
-      {showDepositModal && (
-        <div className="deposit-modal">
-          <div className="deposit-modal-content">
-            <h3>Fazer Depósito</h3>
-            <input
-              type="number"
-              placeholder="Digite o valor..."
-              value={depositAmount}
-              onChange={(e) => setDepositAmount(e.target.value)}
-            />
-            <div className="flex">
-              <button onClick={handleDeposit} className="deposit-confirm-btn">
-                Confirmar
-              </button>
-              <button
-                onClick={() => setShowDepositModal(false)}
-                className="deposit-cancel-btn"
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
+      <div className="header-in">
+        <div className="header-left">
+          <button onClick={onLogout} className="logout-btn">
+            <FaSignOutAlt />
+          </button>
         </div>
-      )}
+        <div className="header-center">
+          {walletBalance !== null && (
+            <span className="wallet-balance">Saldo da Carteira: R${parseFloat(walletBalance).toFixed(2)}</span>
+          )}
+          <button
+            className="deposit-btn"
+            onClick={() => setShowDepositModal(true)}
+          >
+            Depositar
+          </button>
+        </div>
+        <div className="header-right">
+          <span>Usuário: {username} {is_superuser ? "(Administrador)" : ""}</span>
+          {is_superuser ? 
+            (
+              <button className="create-user-btn" onClick={() => setShowCreateUserModal(true)}>
+                Criar Usuário
+              </button>
+            ) : <></>
+          }
+        </div>
 
-      {showCreateUserModal && (
-        <div className="create-user-modal">
-          <div className="create-user-modal-content">
-            <h3>Criar Novo Usuário</h3>
-            <form onSubmit={handleCreateUser}>
+        {showDepositModal && (
+          <div className="deposit-modal">
+            <div className="deposit-modal-content">
+              <h3>Fazer Depósito</h3>
               <input
-                type="text"
-                placeholder="Username"
-                value={newUsername}
-                onChange={(e) => setNewUsername(e.target.value)}
-                required
+                type="number"
+                placeholder="Digite o valor..."
+                value={depositAmount}
+                onChange={(e) => setDepositAmount(e.target.value)}
               />
-              <input
-                type="email"
-                placeholder="Email"
-                value={newEmail}
-                onChange={(e) => setNewEmail(e.target.value)}
-                required
-              />
-              <input
-                type="password"
-                placeholder="Senha"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required
-              />
-              <input
-                type="text"
-                placeholder="Primeiro Nome"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-              />
-              <input
-                type="text"
-                placeholder="Último Nome"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-              />
-              <div className="center-reverse">
-                <span className="span-adm">Administrador</span>
-                <input
-                  type="checkbox"
-                  checked={isAdmin}
-                  onChange={() => setIsAdmin(!isAdmin)}
-                />
-              </div>
-                
-              <div className="center">
-                <button type="submit" className="create-user-btn-confirm">
-                  Criar Usuário
+              <div className="flex">
+                <button onClick={handleDeposit} className="deposit-confirm-btn">
+                  Confirmar
                 </button>
                 <button
-                  onClick={() => setShowCreateUserModal(false)}
-                  className="create-user-btn-cancel"
+                  onClick={() => setShowDepositModal(false)}
+                  className="deposit-cancel-btn"
                 >
                   Cancelar
                 </button>
               </div>
-             
-            </form>
-            
+            </div>
           </div>
-        </div>
-      )}
+        )}
+
+        {showCreateUserModal && (
+          <div className="create-user-modal">
+            <div className="create-user-modal-content">
+              <h3>Criar Novo Usuário</h3>
+              <form onSubmit={handleCreateUser}>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  value={newUsername}
+                  onChange={(e) => setNewUsername(e.target.value)}
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={newEmail}
+                  onChange={(e) => setNewEmail(e.target.value)}
+                  required
+                />
+                <input
+                  type="password"
+                  placeholder="Senha"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Primeiro Nome"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Último Nome"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
+                <div className="center-reverse">
+                  <span className="span-adm">Administrador</span>
+                  <input
+                    type="checkbox"
+                    checked={isAdmin}
+                    onChange={() => setIsAdmin(!isAdmin)}
+                  />
+                </div>
+                  
+                <div className="center">
+                  <button type="submit" className="create-user-btn-confirm">
+                    Criar Usuário
+                  </button>
+                  <button
+                    onClick={() => setShowCreateUserModal(false)}
+                    className="create-user-btn-cancel"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              
+              </form>
+              
+            </div>
+          </div>
+        )}
+      </div>
     </header>
   );
 };
