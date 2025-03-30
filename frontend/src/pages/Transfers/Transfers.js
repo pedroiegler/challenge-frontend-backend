@@ -8,11 +8,8 @@ const Transfers = ({ is_superuser, id_user }) => {
   const [senderName, setSenderName] = useState('');
 
   useEffect(() => {
-    fetchTransfers();
-  }, [startDate, endDate, senderName]);
-
-  const fetchTransfers = async () => {
-    try {
+    const fetchTransfers = async () => {
+      try {
         let url = 'http://localhost:8000/api/v1/transaction/';
         let queryParams = [];
 
@@ -43,10 +40,13 @@ const Transfers = ({ is_superuser, id_user }) => {
 
         const data = await response.json();
         setTransfers(data);
-    } catch (error) {
+      } catch (error) {
         console.error('Erro ao obter as transferências:', error);
-    }
-  };
+      }
+    };
+
+    fetchTransfers();
+  }, [startDate, endDate, senderName, is_superuser, id_user]);
 
   const formatDate = (isoDate) => {
     const options = {
@@ -63,37 +63,35 @@ const Transfers = ({ is_superuser, id_user }) => {
     <div className="transfers-container">
       <h2>Transferências</h2>
 
-        <div className="filters">
-            {is_superuser ? 
-                (
-                <label>
-                    Pesquisar:
-                    <input 
-                        type="text" 
-                        value={senderName} 
-                        onChange={(e) => setSenderName(e.target.value)} 
-                        placeholder="Digite o nome do remetente"
-                    />
-                </label>
-                ) : <></>
-            }
-            <label>
-            Data Início:
-            <input
-                type="date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
+      <div className="filters">
+        {is_superuser && (
+          <label>
+            Pesquisar:
+            <input 
+              type="text" 
+              value={senderName} 
+              onChange={(e) => setSenderName(e.target.value)} 
+              placeholder="Digite o nome do remetente"
             />
-            </label>
-            <label>
-            Data Fim:
-            <input
-                type="date"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-            />
-            </label>
-        </div>
+          </label>
+        )}
+        <label>
+          Data Início:
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+        </label>
+        <label>
+          Data Fim:
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+        </label>
+      </div>
 
       <table className="transfers-table">
         <thead>

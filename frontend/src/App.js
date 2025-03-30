@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Login from './pages/Login/Login';
-import Header from './components/Header/Header';
+import Header from './components/Header';
 import "./App.css";
 import Transfers from './pages/Transfers/Transfers';
 
@@ -25,7 +25,7 @@ const App = () => {
     if(name){
       setUsername(name);
     }
-    if(is_superuser != null && is_superuser != undefined){
+    if(is_superuser !== null && is_superuser !== undefined){
       setIsSuperUser(is_superuser);
     }
   }, [])
