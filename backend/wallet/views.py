@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import transaction
+from django.db.models import Q
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -155,13 +156,14 @@ class TransactionAPIView(APIView):
         transactions = Transaction.objects.all()
 
         sender_id = request.query_params.get("sender_id", None)
+        receiver_id = request.query_params.get("receiver_id", None)
         sender_name = request.query_params.get("sender_name", None)
         created_at_after = request.query_params.get("created_at_after", None)
         created_at_before = request.query_params.get("created_at_before", None)
 
-        if sender_id:
+        if sender_id or receiver_id:
             transactions = transactions.filter(
-                sender__user__id__iexact=sender_id
+                Q(sender__user__id=sender_id) | Q(receiver__user__id=receiver_id)
             )
 
         if sender_name:

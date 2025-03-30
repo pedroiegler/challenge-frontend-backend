@@ -53,7 +53,7 @@
     color: white;
 }
 
-.deposit-btn {
+.transfer-deposit-btn {
     background-color: #4d90fe;
     border: none;
     padding: 8px 15px;
@@ -64,7 +64,7 @@
     transition: background-color 0.3s;
 }
   
-.deposit-btn:hover {
+.transfer-deposit-btn:hover {
     background-color: #357ae8;
 }
   
@@ -89,17 +89,17 @@
     flex-direction: column;
     align-items: center;
     width: 300px;
+    gap: 15px;
 }
   
 .deposit-modal-content h3 {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     color: #000;
 }
   
 .deposit-modal-content input {
     width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -215,4 +215,18 @@
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
+}
+
+.select-user{
+    width: 100%;
+    height: 40px;
+    padding-left: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    cursor: pointer;
 }

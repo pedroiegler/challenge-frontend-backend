@@ -23,6 +23,7 @@ const Transfers = ({ is_superuser, id_user }) => {
 
         if (!is_superuser) {
             queryParams.push(`sender_id=${id_user}`);
+            queryParams.push(`receiver_id=${id_user}`);
         }
 
         if (senderName) {
