@@ -11,8 +11,17 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('auth-token');
+    const id_user = localStorage.getItem('id-user');
+    const name = localStorage.getItem('username');
+
     if(token){
       setToken(token);
+    }
+    if(id_user){
+      setIdUser(id_user);
+    }
+    if(name){
+      setUsername(name);
     }
   })
 
