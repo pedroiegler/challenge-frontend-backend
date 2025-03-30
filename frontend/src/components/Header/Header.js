@@ -1,11 +1,20 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FaSignOutAlt } from "react-icons/fa";
 import "./Header.css";
 
-const Header = ({ id_user, username, onLogout }) => {
+const Header = ({ id_user, username, is_superuser, onLogout }) => {
   const [walletBalance, setWalletBalance] = useState(null);
   const [depositAmount, setDepositAmount] = useState("");
   const [showDepositModal, setShowDepositModal] = useState(false);
+  const [showCreateUserModal, setShowCreateUserModal] = useState(false);
+
+  const [newUsername, setNewUsername] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+
 
   useEffect(() => {
     const fetchWalletBalance = async () => {
@@ -26,7 +35,7 @@ const Header = ({ id_user, username, onLogout }) => {
     };
 
     fetchWalletBalance();
-  }, []);
+  }, [id_user]);
 
   const handleDeposit = async () => {
     try {
@@ -56,6 +65,45 @@ const Header = ({ id_user, username, onLogout }) => {
     }
   };
 
+  const handleCreateUser = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:8000/api/v1/users/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("auth-token")}`,
+        },
+        body: JSON.stringify({
+          username: newUsername,
+          email: newEmail,
+          password: newPassword,
+          first_name: firstName,
+          last_name: lastName,
+          is_superuser: isAdmin,
+        }),
+      });
+
+      if (response.ok) {
+        alert("Usuário criado com sucesso!");
+        setShowCreateUserModal(false);
+
+        setNewUsername("");
+        setNewEmail("");
+        setNewPassword("");
+        setFirstName("");
+        setLastName("");
+        setIsAdmin(false);
+      } else {
+        alert("Erro ao criar usuário. Tente novamente.");
+      }
+    } catch (error) {
+      console.error("Erro na requisição de criação de usuário:", error);
+      alert("Erro na requisição de criação de usuário. Tente novamente.");
+    }
+  };
+
   return (
     <header className="header">
       <div className="header-left">
@@ -76,6 +124,13 @@ const Header = ({ id_user, username, onLogout }) => {
       </div>
       <div className="header-right">
         <span>Usuário: {username}</span>
+        {is_superuser ? 
+          (
+            <button className="create-user-btn" onClick={() => setShowCreateUserModal(true)}>
+              Criar Usuário
+            </button>
+          ) : <></>
+        }
       </div>
 
       {showDepositModal && (
@@ -99,6 +154,73 @@ const Header = ({ id_user, username, onLogout }) => {
                 Cancelar
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {showCreateUserModal && (
+        <div className="create-user-modal">
+          <div className="create-user-modal-content">
+            <h3>Criar Novo Usuário</h3>
+            <form onSubmit={handleCreateUser}>
+              <input
+                type="text"
+                placeholder="Username"
+                value={newUsername}
+                onChange={(e) => setNewUsername(e.target.value)}
+                required
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={newEmail}
+                onChange={(e) => setNewEmail(e.target.value)}
+                required
+              />
+              <input
+                type="password"
+                placeholder="Senha"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Primeiro Nome"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Último Nome"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
+              <div className="center-reverse">
+                <span className="span-adm">Administrador</span>
+                <input
+                  type="checkbox"
+                  checked={isAdmin}
+                  onChange={() => setIsAdmin(!isAdmin)}
+                />
+              </div>
+                
+              <div className="center">
+                <button type="submit" className="create-user-btn-confirm">
+                  Criar Usuário
+                </button>
+                <button
+                  onClick={() => setShowCreateUserModal(false)}
+                  className="create-user-btn-cancel"
+                >
+                  Cancelar
+                </button>
+              </div>
+             
+            </form>
+            
           </div>
         </div>
       )}

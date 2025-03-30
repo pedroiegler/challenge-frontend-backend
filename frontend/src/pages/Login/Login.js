@@ -30,8 +30,9 @@ const Login = ({ onLogin }) => {
       localStorage.setItem('auth-token', data.access);
       localStorage.setItem('id-user', data.id);
       localStorage.setItem('username', data.username);
+      localStorage.setItem('is-superuser', data.is_superuser);
 
-      onLogin(data.id, data.username, data.access);
+      onLogin(data.id, data.username, data.is_superuser, data.access);
     } catch (error) {
       setErrorMessage(error.message || 'Erro na comunicação com a API');
     }

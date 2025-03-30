@@ -8,11 +8,13 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [idUser, setIdUser] = useState("");
   const [token, setToken] = useState(null);
+  const [isSuperUser, setIsSuperUser] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('auth-token');
     const id_user = localStorage.getItem('id-user');
     const name = localStorage.getItem('username');
+    const is_superuser = localStorage.getItem('is-superuser') === 'true';
 
     if(token){
       setToken(token);
@@ -23,13 +25,17 @@ const App = () => {
     if(name){
       setUsername(name);
     }
-  })
+    if(is_superuser){
+      setIsSuperUser(is_superuser);
+    }
+  }, [])
 
-  const handleLogin = (id, username, token) => {
+  const handleLogin = (id, username, is_superuser, token) => {
     setToken(token);
     localStorage.setItem('auth-token', token);
     setUsername(username);
-    setIdUser(id)
+    setIdUser(id);
+    setIsSuperUser(is_superuser);
   };
 
   const handleLogout = () => {
@@ -43,7 +49,7 @@ const App = () => {
         <Login onLogin={handleLogin} />
       ) : (
         <>
-          <Header id_user={idUser} username={username} onLogout={handleLogout} />
+          <Header id_user={idUser} username={username} is_superuser={isSuperUser} onLogout={handleLogout} />
         </>
       )}
     </div>
