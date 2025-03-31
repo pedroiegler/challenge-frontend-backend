@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import Login from './pages/Login/Login';
 import Header from './components/Header';
-import "./App.css";
 import Transfers from './pages/Transfers/Transfers';
+import "./App.css";
 
 const App = () => {
   const [username, setUsername] = useState("");
