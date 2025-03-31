@@ -1,4 +1,4 @@
-# 🚀 Projeto CredutPay | challenge-backend-credutpay
+# 🚀 Projeto Credutpay | challenge-backend-credutpay
 
 Este projeto é uma aplicação web construída com **Python e Django** no backend e **React** no frontend.
 
@@ -102,7 +102,7 @@ O script cadastra **3 usuários** (1 admin e 2 clientes), já com carteiras e um
 
 ### ⛁ Modelo do Banco de Dados
 - Completo:
-<img src="backend/assets/full_model.png" alt="Modelo Completo" width="500">
+<img src="backend/assets/full_model.png" alt="Modelo Completo" width="700">
 
 - Simples:
 <img src="backend/assets/simple_model.png" alt="Modelo Simples" width="500">
@@ -110,6 +110,21 @@ O script cadastra **3 usuários** (1 admin e 2 clientes), já com carteiras e um
 6️⃣ **Inicie o servidor Django:**  
 ```bash
 python manage.py runserver
+```
+
+---
+
+## 📖 Documentação da API (Swagger)
+
+A API possui uma documentação interativa gerada com **Swagger**, permitindo testar endpoints diretamente pelo navegador.
+
+🔗 **Acesse a documentação:**  
+```plaintext
+http://localhost:8000/swagger/
+```
+ou  
+```plaintext
+http://localhost:8000/redoc/
 ```
 
 ---
