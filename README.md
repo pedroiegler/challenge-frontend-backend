@@ -2,6 +2,15 @@
 
 Este projeto é uma aplicação web construída com **Python e Django** no backend e **React** no frontend.
 
+## 🏗 Arquitetura do Projeto
+
+A arquitetura do sistema segue uma abordagem **cliente-servidor** com uma API RESTful no backend e um frontend baseado em React. O backend gerencia autenticação, regras de negócio e persistência dos dados no **PostgreSQL**, enquanto o frontend consome essa API para exibir as informações de forma interativa.
+
+### 📌 Diagrama da Arquitetura  
+![Arquitetura do Projeto](backend/assets/arquitetura.png)
+
+---
+
 ## 🌐 Informações sobre o Backend
 1. Desenvolvido com **Python**, utilizando **Django** e **Django REST Framework**.  
 2. Implementa autenticação **JWT**, exigindo o envio do token no formato **Bearer** nas requisições.  
