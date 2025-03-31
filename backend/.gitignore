@@ -1,0 +1,16 @@
+# .gitignore
+
+# Arquivos de configuração locais
+.env
+
+# Ambiente virtual
+venv/
+
+# Arquivos de banco de dados
+db.sqlite3
+
+# Ignorar arquivos compilados do Python
+*.pyc
+*.pyo
+__pycache__/
+**/__pycache__/
