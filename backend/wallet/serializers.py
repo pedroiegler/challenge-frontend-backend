@@ -17,6 +17,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         data["email"] = user.email
         data["first_name"] = user.first_name
         data["last_name"] = user.last_name
+        data["is_superuser"] = user.is_superuser
         data["date_joined"] = user.date_joined
 
         return data
@@ -33,6 +34,7 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "is_active",
+            "is_superuser",
             "date_joined",
         ]
         extra_kwargs = {"password": {"write_only": True}}

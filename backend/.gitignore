@@ -1,13 +1,13 @@
 # .gitignore
 
 # Arquivos de configuração locais
-backend/.env
+.env
 
 # Ambiente virtual
-backend/venv/
+venv/
 
 # Arquivos de banco de dados
-backend/db.sqlite3
+db.sqlite3
 
 # Ignorar arquivos compilados do Python
 *.pyc
