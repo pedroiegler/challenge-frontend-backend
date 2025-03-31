@@ -1,8 +1,8 @@
 # 🚀 Projeto CredutPay | challenge-backend-credutpay
 
-Este projeto é uma aplicação web construída com **Python e Django** no backend e **(preencher tecnologia do frontend, se aplicável)** no frontend.
+Este projeto é uma aplicação web construída com **Python e Django** no backend e **React** no frontend.
 
-## 📌 Informações sobre o projeto  
+## 🌐 Informações sobre o Backend
 1. Desenvolvido com **Python**, utilizando **Django** e **Django REST Framework**.  
 2. Implementa autenticação **JWT**, exigindo o envio do token no formato **Bearer** nas requisições.  
 3. Utiliza **PostgreSQL** como banco de dados, com **PgAdmin** para gerenciamento.  
@@ -10,6 +10,22 @@ Este projeto é uma aplicação web construída com **Python e Django** no backe
 5. Inclui um script para **popular o banco de dados** com dados fictícios para demonstração.  
 6. Contém **testes automatizados**, garantindo a estabilidade e segurança do sistema.  
 7. Qualidade de código garantida através do uso de **Linters**, com **Flake8** para análise estática, **Black** para formatação automática e **Isort** para organização das importações, assegurando consistência e boas práticas no desenvolvimento.
+
+## 🌐 Informações sobre o Frontend
+1. **Interface do usuário** desenvolvida com **React**, utilizando **hooks** como `useState` e `useEffect` para gerenciar estados e realizar requisições assíncronas.
+2. **Estilização** utilizando **CSS** e classes personalizadas, com uma estrutura modularizada para facilitar a manutenção e reutilização dos componentes.
+3. **Componente de listagem de transferências**:
+   - Exibe uma tabela com as transferências, incluindo informações como ID, remetente, destinatário, valor e data.
+   - Permite filtrar as transferências por **data de início**, **data de fim** e **nome do remetente** (caso o usuário seja um superusuário).
+4. **Filtros dinâmicos**:
+   - Utiliza inputs de data para permitir ao usuário especificar um intervalo de tempo para a exibição das transferências.
+   - Adiciona a funcionalidade de pesquisa pelo nome do remetente, visível apenas para superusuários.
+5. **Integração com o back-end**:
+   - Realiza requisições à API RESTful do back-end utilizando o **token JWT** para autenticação.
+   - As transferências são recuperadas da API e exibidas dinamicamente na interface.
+6. **Permissões**:
+  - O usuário **Administrador** pode criar novos usuários, visualizar todas as transferências realizadas por qualquer usuário e filtrar as transferências por remetente, ou seja, pode pesquisar transferências feitas por um usuário específico.
+  - O usuário **Cliente** não pode criar novos usuários, ele pode visualizar apenas as transferências realizadas por ele próprio e o filtro por remetente estará desativado, já que ele só pode visualizar suas próprias transferências.
 
 ---
 
@@ -21,6 +37,8 @@ Antes de começar, certifique-se de ter os seguintes requisitos instalados:
 - [PostgreSQL](https://www.postgresql.org/)  
 - [PgAdmin](https://www.pgadmin.org/download/)  
 - [Git](https://git-scm.com/)  
+- [Node.js](https://nodejs.org/) (incluindo o npm)
+- [React](https://reactjs.org/)  
 
 Agora, clone o repositório:  
 
@@ -134,6 +152,22 @@ python manage.py showmigrations
 
 ---
 
+## ⚙️ Configuração do Frontend (React)  
+
+Acesse o diretório do frontend e siga os passos abaixo:  
+
+1️⃣ **Instale as dependências do projeto:**  
+```bash
+npm install
+```
+
+2️⃣ **Inicie o servidor de desenvolvimento do React:**  
+```bash
+npm start
+```
+
+---
+
 ## 🛠 Tecnologias utilizadas  
 
 - **Backend:**  
@@ -143,8 +177,11 @@ python manage.py showmigrations
   - PostgreSQL  
   - PgAdmin  
 
-- **Frontend (se houver)**  
-  - *(Preencher tecnologia utilizada no frontend, como React, Vue.js, etc.)*  
+- **Frontend:**  
+  - React  
+  - React Hooks (`useState`, `useEffect`, `useCallback`)  
+  - CSS  
+  - JWT (para autenticação no lado do cliente)  
 
 ---
 
