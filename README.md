@@ -102,10 +102,10 @@ O script cadastra **3 usuários** (1 admin e 2 clientes), já com carteiras e um
 
 ### ⛁ Modelo do Banco de Dados
 - Completo:
-![Modelo Completo](backend/assets/full_model.png)
+<img src="backend/assets/full_model.png" alt="Modelo Completo" width="500">
 
 - Simples:
-![Modelo Simples](backend/assets/simple_model.png)
+<img src="backend/assets/simple_model.png" alt="Modelo Simples" width="500">
 
 6️⃣ **Inicie o servidor Django:**  
 ```bash
