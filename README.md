@@ -24,8 +24,8 @@ Este projeto é uma aplicação web construída com **Python e Django** no backe
    - Realiza requisições à API RESTful do back-end utilizando o **token JWT** para autenticação.
    - As transferências são recuperadas da API e exibidas dinamicamente na interface.
 6. **Permissões**:
-  - O usuário **Administrador** pode criar novos usuários, visualizar todas as transferências realizadas por qualquer usuário e filtrar as transferências por remetente, ou seja, pode pesquisar transferências feitas por um usuário específico.
-  - O usuário **Cliente** não pode criar novos usuários, ele pode visualizar apenas as transferências realizadas por ele próprio e o filtro por remetente estará desativado, já que ele só pode visualizar suas próprias transferências.
+   - O usuário **Administrador** pode criar novos usuários, visualizar todas as transferências realizadas por qualquer usuário e filtrar as transferências por remetente, ou seja, pode pesquisar transferências feitas por um usuário específico.
+   - O usuário **Cliente** não pode criar novos usuários, ele pode visualizar apenas as transferências realizadas por ele próprio e o filtro por remetente estará desativado, já que ele só pode visualizar suas próprias transferências.
 
 ---
 
@@ -37,7 +37,7 @@ Antes de começar, certifique-se de ter os seguintes requisitos instalados:
 - [PostgreSQL](https://www.postgresql.org/)  
 - [PgAdmin](https://www.pgadmin.org/download/)  
 - [Git](https://git-scm.com/)  
-- [Node.js](https://nodejs.org/) (incluindo o npm)
+- [Node.js](https://nodejs.org/)
 - [React](https://reactjs.org/)  
 
 Agora, clone o repositório:  

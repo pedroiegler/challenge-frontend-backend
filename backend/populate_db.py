@@ -2,7 +2,7 @@ import os
 from decimal import Decimal
 
 import django
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import User
 from django.utils.timezone import now
 
 from wallet.models import Transaction, Wallet
@@ -10,15 +10,12 @@ from wallet.models import Transaction, Wallet
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "financial_project.settings")
 django.setup()
 
-admin_group, created = Group.objects.get_or_create(name="admin")
-cliente_group, created = Group.objects.get_or_create(name="cliente")
 
 admin_user, created = User.objects.get_or_create(
     username="admin_demo",
     defaults={"email": "admin@example.com", "is_staff": True, "is_superuser": True},
 )
 admin_user.set_password("admin123")
-admin_user.groups.add(admin_group)
 admin_user.save()
 
 
@@ -31,7 +28,6 @@ client1, created = User.objects.get_or_create(
     },
 )
 client1.set_password("cliente123")
-client1.groups.add(cliente_group)
 client1.save()
 
 
@@ -44,7 +40,6 @@ client2, created = User.objects.get_or_create(
     },
 )
 client2.set_password("cliente123")
-client2.groups.add(cliente_group)
 client2.save()
 
 
