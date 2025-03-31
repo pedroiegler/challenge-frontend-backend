@@ -247,6 +247,8 @@ Essa opção desliga e remove os containers, redes e volumes criados pelo docker
   - React Hooks (`useState`, `useEffect`, `useCallback`)  
   - CSS  
   - JWT (para autenticação no lado do cliente)  
+  - Docker
+  - Docker Compose
 
 ---
 
