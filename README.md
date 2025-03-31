@@ -4,7 +4,7 @@ Este projeto é uma aplicação web construída com **Python e Django** no backe
 
 ## 🏗 Arquitetura do Projeto
 
-A arquitetura do sistema segue uma abordagem **cliente-servidor** com uma API RESTful no backend e um frontend baseado em React. O backend gerencia autenticação, regras de negócio e persistência dos dados no **PostgreSQL**, enquanto o frontend consome essa API para exibir as informações de forma interativa.
+A arquitetura do sistema segue uma abordagem **cliente-servidor** com uma API RESTful no backend e um frontend baseado em React. O backend gerencia autenticação, regras de negócio e persistência dos dados no **PostgreSQL**, enquanto o frontend consome essa API para exibir as informações de forma interativa e utiliza Docker para conteinerização.
 
 ### 📌 Diagrama da Arquitetura  
 ![Arquitetura do Projeto](backend/assets/arquitetura.png)
@@ -42,12 +42,14 @@ A arquitetura do sistema segue uma abordagem **cliente-servidor** com uma API RE
 
 Antes de começar, certifique-se de ter os seguintes requisitos instalados:  
 
-- [Python 3.9+](https://www.python.org/downloads/)  
+- [Python 3.10+](https://www.python.org/downloads/)  
 - [PostgreSQL](https://www.postgresql.org/)  
 - [PgAdmin](https://www.pgadmin.org/download/)  
 - [Git](https://git-scm.com/)  
 - [Node.js](https://nodejs.org/)
 - [React](https://reactjs.org/)  
+- [Docker](https://www.docker.com/get-started) 
+- [Docker Compose](https://docs.docker.com/compose/)
 
 Agora, clone o repositório:  
 
@@ -90,7 +92,7 @@ python manage.py migrate
 
 5️⃣ **Popule o banco de dados com dados fictícios:**  
 ```bash
-python manage.py shell < populate_db.py
+python manage.py shell < wallet/scripts/populate_db.py
 ```
 
 ### 📌 Dados populados  
@@ -98,16 +100,16 @@ O script cadastra **3 usuários** (1 admin e 2 clientes), já com carteiras e um
 
 - **Usuário 1 (Admin)**  
   - `username: admin_demo`  
-  - `senha: admin123`  
+  - `senha: A!m9n#Q@7dGp3`  
   - **Permissão:** pode gerenciar usuários.  
 
 - **Usuário 2 (Cliente)**  
   - `username: cliente1`  
-  - `senha: cliente123`  
+  - `senha: Cl!eNt3_4@zLp8`  
 
 - **Usuário 3 (Cliente)**  
   - `username: cliente2`  
-  - `senha: cliente123`  
+  - `senha: C!iEnT@d2eQw7!x`  
 
 ### ⛁ Modelo do Banco de Dados
 - Completo:
@@ -196,6 +198,38 @@ npm install
 ```bash
 npm start
 ```
+
+---
+
+## 🐳 Configuração do Docker para o Frontend  
+
+O frontend pode ser executado utilizando **Docker**, garantindo um ambiente consistente e simplificado para desenvolvimento e execução.
+
+### 🚀 **Como rodar o frontend com Docker**  
+
+1️⃣ **Subir o container do frontend:**  
+```bash
+docker-compose up
+```
+Isso irá iniciar o frontend na porta **3000**.
+
+2️⃣ **Forçar a reconstrução da imagem:**  
+```bash
+docker-compose up --build
+```
+Se houver mudanças no código, esta opção garante que o Docker reconstrua a imagem antes de rodar o container.
+
+3️⃣ **Parar a execução dos containers:**  
+```bash
+docker-compose stop
+```
+Isso pausa os containers sem removê-los.
+
+4️⃣ **Remover os containers e liberar recursos:**  
+```bash
+docker-compose down
+```
+Essa opção desliga e remove os containers, redes e volumes criados pelo docker-compose up.
 
 ---
 

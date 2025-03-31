@@ -11,3 +11,7 @@ PyYAML==6.0.2
 sqlparse==0.5.3
 typing_extensions==4.13.0
 uritemplate==4.1.1
+django-extensions
+django-cors-headers==4.7.0
+python-decouple==3.8
+psycopg2-binary==2.9.9

@@ -15,7 +15,8 @@ admin_user, created = User.objects.get_or_create(
     username="admin_demo",
     defaults={"email": "admin@example.com", "is_staff": True, "is_superuser": True},
 )
-admin_user.set_password("admin123")
+
+admin_user.set_password("A!m9n#Q@7dGp3")
 admin_user.save()
 
 
@@ -27,7 +28,7 @@ client1, created = User.objects.get_or_create(
         "is_superuser": False,
     },
 )
-client1.set_password("cliente123")
+client1.set_password("Cl!eNt3_4@zLp8")
 client1.save()
 
 
@@ -39,7 +40,7 @@ client2, created = User.objects.get_or_create(
         "is_superuser": False,
     },
 )
-client2.set_password("cliente123")
+client2.set_password("C!iEnT@d2eQw7!x")
 client2.save()
 
 
