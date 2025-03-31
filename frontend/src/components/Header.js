@@ -36,6 +36,7 @@ const Header = ({ id_user, username, is_superuser, onLogout }) => {
       alert("Depósito realizado com sucesso!");
       setShowDepositModal(false);
       setDepositAmount("");
+      window.location.reload();
     } else {
       alert(result.errorMessage);
     }

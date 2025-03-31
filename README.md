@@ -19,22 +19,25 @@ A arquitetura do sistema segue uma abordagem **cliente-servidor** com uma API RE
 5. Inclui um script para **popular o banco de dados** com dados fictícios para demonstração.  
 6. Contém **testes automatizados**, garantindo a estabilidade e segurança do sistema.  
 7. Qualidade de código garantida através do uso de **Linters**, com **Flake8** para análise estática, **Black** para formatação automática e **Isort** para organização das importações, assegurando consistência e boas práticas no desenvolvimento.
+8. **Swagger** integrado para documentação interativa das APIs, facilitando o entendimento e a integração das rotas.
 
 ## 🌐 Informações sobre o Frontend
 1. **Interface do usuário** desenvolvida com **React**, utilizando **hooks** como `useState` e `useEffect` para gerenciar estados e realizar requisições assíncronas.
 2. **Estilização** utilizando **CSS** e classes personalizadas, com uma estrutura modularizada para facilitar a manutenção e reutilização dos componentes.
-3. **Componente de listagem de transferências**:
-   - Exibe uma tabela com as transferências, incluindo informações como ID, remetente, destinatário, valor e data.
-   - Permite filtrar as transferências por **data de início**, **data de fim** e **nome do remetente** (caso o usuário seja um superusuário).
+3. **Componente de listagem de transferências financeiras entre usuários**:
+   - Exibe uma tabela com as transferências financeiras, incluindo informações como ID, remetente, destinatário, valor e data.
+   - Permite filtrar as transferências financeiras por **data de início**, **data de fim** e **nome do remetente** (caso o usuário seja um superusuário).
 4. **Filtros dinâmicos**:
-   - Utiliza inputs de data para permitir ao usuário especificar um intervalo de tempo para a exibição das transferências.
+   - Utiliza inputs de data para permitir ao usuário especificar um intervalo de tempo para a exibição das transferências financeiras.
    - Adiciona a funcionalidade de pesquisa pelo nome do remetente, visível apenas para superusuários.
 5. **Integração com o back-end**:
    - Realiza requisições à API RESTful do back-end utilizando o **token JWT** para autenticação.
    - As transferências são recuperadas da API e exibidas dinamicamente na interface.
 6. **Permissões**:
-   - O usuário **Administrador** pode criar novos usuários, visualizar todas as transferências realizadas por qualquer usuário e filtrar as transferências por remetente, ou seja, pode pesquisar transferências feitas por um usuário específico.
-   - O usuário **Cliente** não pode criar novos usuários, ele pode visualizar apenas as transferências realizadas por ele próprio e o filtro por remetente estará desativado, já que ele só pode visualizar suas próprias transferências.
+   - O usuário **Administrador** pode criar novos usuários, visualizar todas as transferências financeiras realizadas por qualquer usuário e filtrar as transferências por remetente, ou seja, pode pesquisar transferências feitas por um usuário específico.
+   - O usuário **Cliente** não pode criar novos usuários, ele pode visualizar apenas as transferências financeiras realizadas por ele próprio e o filtro por remetente estará desativado, já que ele só pode visualizar suas próprias transferências.
+7. **Docker**:
+   - O front-end React é conteinerizado utilizando Docker, permitindo a criação de um ambiente isolado e portátil para o desenvolvimento e execução da aplicação.
 
 ---
 
@@ -240,7 +243,8 @@ Essa opção desliga e remove os containers, redes e volumes criados pelo docker
   - Django  
   - Django REST Framework  
   - PostgreSQL  
-  - PgAdmin  
+  - PgAdmin
+  - Swagger
 
 - **Frontend:**  
   - React  
