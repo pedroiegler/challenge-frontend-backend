@@ -7,6 +7,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
+from drf_yasg.utils import swagger_auto_schema
 
 from wallet.serializers import CustomTokenObtainPairSerializer
 
@@ -63,6 +64,7 @@ class WalletViewSet(viewsets.ViewSet):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
+    @swagger_auto_schema(request_body=DepositSerializer)
     @action(detail=False, url_path=r"deposit/(?P<id_user>\d+)", methods=["PATCH"])
     def deposit(self, request, id_user):
         serializer = DepositSerializer(data=request.data)
@@ -72,6 +74,12 @@ class WalletViewSet(viewsets.ViewSet):
                 user = User.objects.get(id=id_user)
                 wallet = Wallet.objects.get(user=user)
                 balance = serializer.validated_data["balance"]
+
+                if balance < 0:
+                    return Response(
+                        {"detail": "Balance must be greater than zero."},
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
 
                 wallet.balance += balance
                 wallet.save()
@@ -98,11 +106,8 @@ class WalletViewSet(viewsets.ViewSet):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(
-        detail=False,
-        url_path=r"transfer/(?P<id_user_sender>\d+)",
-        methods=["POST"],
-    )
+    @swagger_auto_schema(request_body=TransferSerializer)
+    @action(detail=False, url_path=r"transfer/(?P<id_user_sender>\d+)", methods=["POST"])
     def transfer(self, request, id_user_sender):
         serializer = TransferSerializer(data=request.data)
         if serializer.is_valid():
@@ -162,14 +167,10 @@ class TransactionAPIView(APIView):
         created_at_before = request.query_params.get("created_at_before", None)
 
         if sender_id or receiver_id:
-            transactions = transactions.filter(
-                Q(sender__user__id=sender_id) | Q(receiver__user__id=receiver_id)
-            )
+            transactions = transactions.filter(Q(sender__user__id=sender_id) | Q(receiver__user__id=receiver_id))
 
         if sender_name:
-            transactions = transactions.filter(
-                sender__user__username__icontains=sender_name
-            )
+            transactions = transactions.filter(sender__user__username__icontains=sender_name)
 
         if created_at_after:
             transactions = transactions.filter(created_at__gte=created_at_after)
