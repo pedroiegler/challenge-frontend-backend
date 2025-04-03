@@ -168,7 +168,7 @@ pytest
 
 ### 📌 Gerar diagrama do banco de dados  
 
-Os diagramas já foram gerados e estão disponíveis no diretório `backend/db`.  
+Os diagramas já foram gerados e estão disponíveis no diretório `backend/assets`.  
 
 - **Diagrama Simples:**  
   ```bash
