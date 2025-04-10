@@ -1,4 +1,4 @@
-# 🚀 Projeto Credutpay | challenge-backend-credutpay
+# 🚀 Projeto Transações Financeiras | challenge-frontend-backend
 
 Este projeto é uma aplicação web construída com **Python e Django** no backend e **React** no frontend.
 
@@ -58,10 +58,10 @@ Agora, clone o repositório:
 
 ```bash
 # Via SSH
-git clone git@github.com:pedroiegler/challenge-backend-credutpay.git
+git clone git@github.com:pedroiegler/challenge-frontend-backend.git
 
 # Via HTTPS
-git clone https://github.com/pedroiegler/challenge-backend-credutpay.git
+git clone https://github.com/pedroiegler/challenge-frontend-backend.git
 ```
 
 ---
